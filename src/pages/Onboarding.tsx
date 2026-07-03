@@ -52,7 +52,7 @@ export default function Onboarding() {
                   className="w-full rounded-xl border-2 border-carrot bg-card px-2 py-1 text-lg font-bold outline-none"
                 />
               ) : (
-                <span className="text-lg font-extrabold">Это {t.name}</span>
+                <span className="text-lg font-extrabold">Я {t.name}</span>
               )}
             </button>
             <button

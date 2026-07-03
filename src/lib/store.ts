@@ -37,8 +37,8 @@ export function nowISO(): string {
 
 export function seedTrainers(): Trainer[] {
   return [
-    { id: newId(), name: 'Валерия', emoji: '👩🏻', color: '#e8739e' },
-    { id: newId(), name: 'Партнёр', emoji: '🧑🏻', color: '#5b8fd4' },
+    { id: newId(), name: 'Лера', emoji: '👩🏻', color: '#e8739e' },
+    { id: newId(), name: 'Витя', emoji: '🧑🏻', color: '#5b8fd4' },
   ]
 }
 

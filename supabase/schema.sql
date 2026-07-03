@@ -47,8 +47,8 @@ create policy "anon full access" on potty_events for all using (true) with check
 
 -- Стартовые данные
 insert into trainers (name, emoji, color) values
-  ('Валерия', '👩🏻', '#e8739e'),
-  ('Партнёр', '🧑🏻', '#5b8fd4');
+  ('Лера', '👩🏻', '#e8739e'),
+  ('Витя', '🧑🏻', '#5b8fd4');
 
 insert into commands (name, emoji, category, sort_order) values
   ('Сидеть', '🪑', 'useful', 0),
