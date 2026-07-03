@@ -2,7 +2,10 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    # claude/... в списке, пока она дефолтная ветка репозитория: окружение
+    # github-pages разрешает деплой только с дефолтной. Когда дефолтной станет
+    # main, ветку можно убрать из списка.
+    branches: [main, claude/dog-training-tracker-5hh0fg]
   workflow_dispatch:
 
 permissions:
