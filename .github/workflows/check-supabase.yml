@@ -1,0 +1,48 @@
+name: Check Supabase connection
+
+# Диагностика подключения к Supabase: проверяет формат секретов
+# (не раскрывая их) и делает тестовый запрос к базе.
+on: workflow_dispatch
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Diagnose secrets and test connection
+        env:
+          URL: ${{ secrets.VITE_SUPABASE_URL }}
+          KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          echo "== VITE_SUPABASE_URL =="
+          echo "длина: ${#URL}"
+          if [ -z "$URL" ]; then echo "ПРОБЛЕМА: секрет пустой или не задан"; fi
+          case "$URL" in
+            *' '*|*$'\t'*|*$'\r'*|*$'\n'*) echo "ПРОБЛЕМА: содержит пробел или перенос строки" ;;
+            *) echo "пробелов и переносов нет" ;;
+          esac
+          case "$URL" in
+            https://*.supabase.co) echo "формат правильный (https://…supabase.co)" ;;
+            */) echo "ПРОБЛЕМА: лишний слэш на конце" ;;
+            *) echo "ПРОБЛЕМА: не похоже на https://xxxx.supabase.co" ;;
+          esac
+
+          echo "== VITE_SUPABASE_ANON_KEY =="
+          echo "длина: ${#KEY}"
+          if [ -z "$KEY" ]; then echo "ПРОБЛЕМА: секрет пустой или не задан"; fi
+          case "$KEY" in
+            *' '*|*$'\t'*|*$'\r'*|*$'\n'*) echo "ПРОБЛЕМА: содержит пробел или перенос строки" ;;
+            *) echo "пробелов и переносов нет" ;;
+          esac
+          case "$KEY" in
+            sb_publishable_*|eyJ*) echo "формат похож на правильный ключ" ;;
+            sb_secret_*) echo "ПРОБЛЕМА: это секретный ключ, нужен publishable/anon" ;;
+            *) echo "ПРОБЛЕМА: не похоже ни на sb_publishable_…, ни на eyJ…" ;;
+          esac
+
+          echo "== Тестовый запрос к базе =="
+          code=$(curl -s -o /tmp/resp.txt -w '%{http_code}' \
+            "$URL/rest/v1/trainers?select=name" \
+            -H "apikey: $KEY" -H "Authorization: Bearer $KEY" || echo "curl_failed")
+          echo "HTTP-статус: $code"
+          echo "Ответ базы:"
+          head -c 600 /tmp/resp.txt; echo
