@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">
+  <!-- Иконка приложения: портрет Драника (генерируется из src/components/mascot.tsx) -->
+  <circle cx="110" cy="110" r="110" fill="#f7e9d2"/>
+  <g transform="translate(0 -14)">
+    <g fill="#4e5566">
+      <path d="M62 78 C34 84 26 128 33 162 C36 178 46 186 58 180 C74 172 80 128 76 96 C74 82 70 76 62 78 Z"/>
+      <path d="M158 78 C186 84 194 128 187 162 C184 178 174 186 162 180 C146 172 140 128 144 96 C146 82 150 76 158 78 Z"/>
+    </g>
+    <g fill="#8b93a8" opacity="0.85">
+      <ellipse cx="50" cy="120" rx="7" ry="14" transform="rotate(8 50 120)"/>
+      <ellipse cx="58" cy="152" rx="5" ry="10" transform="rotate(14 58 152)"/>
+      <ellipse cx="170" cy="120" rx="7" ry="14" transform="rotate(-8 170 120)"/>
+      <ellipse cx="162" cy="152" rx="5" ry="10" transform="rotate(-14 162 152)"/>
+    </g>
+    <ellipse cx="110" cy="120" rx="63" ry="57" fill="#f6ead4"/>
+    <path d="M49 112 C49 84 72 62 110 62 C148 62 171 84 171 112 C165 106 154 100 146 102 C136 104 128 112 121 106 C116 101 112 96 110 96 C108 96 104 101 99 106 C92 112 84 104 74 102 C66 100 55 106 49 112 Z" fill="#aab0be"/>
+    <g fill="#3c4252">
+      <ellipse cx="86" cy="76" rx="8" ry="5" transform="rotate(-14 86 76)"/>
+      <ellipse cx="126" cy="72" rx="10" ry="6" transform="rotate(10 126 72)"/>
+      <ellipse cx="106" cy="84" rx="5" ry="3.5" transform="rotate(-6 106 84)"/>
+      <ellipse cx="146" cy="86" rx="5" ry="3.5" transform="rotate(16 146 86)"/>
+    </g>
+    <ellipse cx="74" cy="138" rx="9" ry="5.5" fill="#f2b3a4" opacity="0.55"/>
+    <ellipse cx="146" cy="138" rx="9" ry="5.5" fill="#f2b3a4" opacity="0.55"/>
+    <circle cx="82" cy="113" r="7.5" fill="#332a24"/>
+    <circle cx="139" cy="113" r="7.5" fill="#332a24"/>
+    <circle cx="84.5" cy="110.5" r="2.6" fill="#fff"/>
+    <circle cx="141.5" cy="110.5" r="2.6" fill="#fff"/>
+    <ellipse cx="110" cy="150" rx="31" ry="22" fill="#fbf3e2"/>
+    <ellipse cx="110" cy="139" rx="11.5" ry="8.5" fill="#332a24"/>
+    <ellipse cx="106.5" cy="136.5" rx="3" ry="2" fill="#fff" opacity="0.7"/>
+    <g stroke="#332a24" stroke-width="3.4" stroke-linecap="round" fill="none">
+      <path d="M110 147 v7"/>
+      <path d="M110 154 q-8 9 -17 3"/>
+      <path d="M110 154 q8 9 17 3"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Тёплая палитра приложения */
+  --color-cream: #fdf7ee; /* фон */
+  --color-cream-deep: #f5ead8; /* фоновые акценты */
+  --color-card: #ffffff;
+  --color-line: #f0e4d2; /* тонкие разделители */
+
+  --color-ink: #4a3728; /* основной текст, тёплый коричневый */
+  --color-ink-soft: #a08b78; /* вторичный текст */
+
+  --color-carrot: #f59e0b; /* главный акцент */
+  --color-carrot-deep: #d97706;
+  --color-carrot-soft: #fdeed3;
+
+  --color-home: #5b8fd4; /* дома */
+  --color-home-soft: #e8f1fb;
+  --color-out: #5fa463; /* на улице */
+  --color-out-soft: #e9f4e7;
+
+  --color-bad: #e05b4a; /* туалетные промахи */
+  --color-bad-deep: #c2452f;
+  --color-bad-soft: #fcebe7;
+
+  --color-fun: #e8739e; /* категория «весёлые» */
+  --color-fun-soft: #fbe7ef;
+  --color-useful: #4fa8a0; /* категория «полезные» */
+  --color-useful-soft: #e4f3f1;
+
+  /* окрас Драника — для иллюстраций и деталей */
+  --color-dranik: #aab0be;
+  --color-dranik-dark: #4e5566;
+  --color-dranik-cream: #f3e5cd;
+
+  --animate-pop: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-slide-up: slide-up 0.3s cubic-bezier(0.22, 1.1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.2s ease-out both;
+  --animate-paw-burst: paw-burst 0.9s ease-out both;
+  --animate-wiggle: wiggle 1.6s ease-in-out infinite;
+
+  @keyframes pop {
+    0% {
+      transform: scale(0.6);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-up {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes paw-burst {
+    0% {
+      transform: translateY(0) scale(0.4) rotate(var(--paw-rot, 0deg));
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-46px) scale(1.1) rotate(var(--paw-rot, 0deg));
+      opacity: 0;
+    }
+  }
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+    overscroll-behavior-y: none;
+  }
+  button {
+    @apply cursor-pointer select-none;
+    touch-action: manipulation;
+  }
+}
