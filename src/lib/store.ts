@@ -177,21 +177,44 @@ class SupabaseStore implements Store {
     if (error) throw new Error(error.message)
   }
 
+  /**
+   * Читает таблицу целиком, страницами.
+   *
+   * Supabase (PostgREST) отдаёт максимум 1000 строк за запрос и молча
+   * обрезает остальное — без ошибки. Отметок о тренировках со временем
+   * становится больше 1000, и самые свежие просто не доезжали до приложения:
+   * запись была в базе, а на экране после перезагрузки пропадала.
+   *
+   * Смещение сдвигаем на фактическое число полученных строк, а не на размер
+   * страницы, — тогда всё работает и при другом серверном лимите.
+   * Сортировка дополняется `id`, чтобы порядок был однозначным и строки
+   * не терялись и не дублировались между страницами.
+   */
+  private async fetchTable<T>(table: string, orderBy: string): Promise<T[]> {
+    const PAGE_SIZE = 1000
+    const rows: T[] = []
+    for (;;) {
+      const { data, error } = await this.client
+        .from(table)
+        .select('*')
+        .order(orderBy)
+        .order('id')
+        .range(rows.length, rows.length + PAGE_SIZE - 1)
+      if (error) throw new Error(error.message)
+      const batch = (data ?? []) as T[]
+      if (batch.length === 0) return rows
+      rows.push(...batch)
+    }
+  }
+
   async fetchAll() {
     const [trainers, commands, logs, potty] = await Promise.all([
-      this.client.from('trainers').select('*').order('name'),
-      this.client.from('commands').select('*').order('sort_order'),
-      this.client.from('training_logs').select('*').order('created_at'),
-      this.client.from('potty_events').select('*').order('created_at'),
+      this.fetchTable<Trainer>('trainers', 'name'),
+      this.fetchTable<Command>('commands', 'sort_order'),
+      this.fetchTable<TrainingLog>('training_logs', 'created_at'),
+      this.fetchTable<PottyEvent>('potty_events', 'created_at'),
     ])
-    const err = trainers.error ?? commands.error ?? logs.error ?? potty.error
-    if (err) throw new Error(err.message)
-    return {
-      trainers: (trainers.data ?? []) as Trainer[],
-      commands: (commands.data ?? []) as Command[],
-      logs: (logs.data ?? []) as TrainingLog[],
-      potty: (potty.data ?? []) as PottyEvent[],
-    }
+    return { trainers, commands, logs, potty }
   }
 
   updateTrainer(id: string, patch: Partial<Omit<Trainer, 'id'>>) {
